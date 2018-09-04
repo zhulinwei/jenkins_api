@@ -1,0 +1,22 @@
+{
+  "name": "jenkins_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhulinwei/jenkins_api.git"
+  },
+  "keywords": [
+    "jenkins"
+  ],
+  "author": "Level.Z",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhulinwei/jenkins_api/issues"
+  },
+  "homepage": "https://github.com/zhulinwei/jenkins_api#readme"
+}
