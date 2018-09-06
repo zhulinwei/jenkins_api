@@ -1,3 +1,4 @@
+const util = require('util');
 const request = require('request-promise-native');
 
 class Jenkins {
@@ -19,20 +20,85 @@ class Jenkins {
       auth: { user: this.username, pass: this.password }
     };
     const result = await request(options).catch(err => err);
-    if (!result) return { ok: 1 };
-    else return { ok: 0, err: result };
+    if (result && util.isObject(result)) return { ok: 0, err: result };
+    return { ok: 1 };
   }
 
-  async build(jobName, jobNumber) {
+  async remove(jobName) {
+    if (!jobName) throw new Error('请设置需要移除的项目名称'); 
+    const options = {
+      method: "POST",
+      uri: `${this.baseUrl}/job/${jobName}/doDelete/api/json?token=${this.token}&name=${jobName}`,
+      followAllRedirects: true,
+      auth: { user: this.username, pass: this.password }
+    };
+    const result = await request(options).catch(err => err);
+    if (result && util.isObject(result)) return { ok: 0, err: result };
+    return { ok: 1 };
+  }
+
+  async build(jobName) {
+    if (!jobName) throw new Error('请设置需要构建的项目以及版本号');
+    const options = {
+      method: "POST",
+      uri: `${this.baseUrl}/job/${jobName}/build/api/json?token=${this.token}`,
+      auth: { user: this.username, pass: this.password }
+    };
+    const result = await request(options).catch(err => err);
+    console.log('result: ', result);
+    if (result && util.isObject(result)) return { ok: 0, err: result };
+    return { ok: 1 };
+  }  
+
+  async getBuildInfo(jobName, jobNumber) {
+    if (!jobName || !jobNumber) throw new Error('请设置需要项目名称以及版本号');
+    const options = {
+      method: "GET",
+      uri: `${this.baseUrl}/job/${jobName}/${jobNumber}/api/json`,
+      followAllRedirects: true,
+      auth: { user: this.username, pass: this.password }
+    };
+    const result = await request(options).catch(err => err);
+    console.log('result: ', result);
+    if (result && util.isObject(result)) return { ok: 0, err: result };
+    return { ok: 1 };
+  }
+
+  async getBuildLog(jobName, jobNumber) {
+    if (!jobName || !jobNumber) throw new Error('请设置需要项目名称以及版本号');
+    const options = {
+      method: "GET",
+      uri: `${this.baseUrl}/job/${jobName}/${jobNumber}/consoleText/api/json`,
+    };
+    const result = await request(options).catch(err => err);
+    console.log('result: ', result);
+    if (result && util.isObject(result)) return { ok: 0, err: result };
+    return { ok: 1 };
+  }
+
+  async getBuildHistory(jobName) {
+    if (!jobName) throw new Error('请设置需要项目名称');
+    const options = {
+      method: "GET",
+      uri: `${this.baseUrl}/job/${jobName}/api/json?tree=allBuilds[id,timestamp,result,duration]`,
+    };
+    const result = await request(options).catch(err => err);
+    if (result && util.isObject(result)) return { ok: 0, err: result };
+    return { ok: 1 };
+  }
+
+  async stopBuild(jobName, jobNumber) {
     if (!jobName || !jobNumber) throw new Error('请设置需要构建的项目以及版本号');
     const options = {
       method: "POST",
-      uri: `${this.baseUrl}/job/${jobName}/build/api/json?token=${this.token}`      
+      uri: `${this.baseUrl}/job/${jobName}/${jobNumber}/stop?token=${this.token}`,
+      followAllRedirects: true,
+      auth: { user: this.username, pass: this.password }
     };
     const result = await request(options).catch(err => err);
-    if (!result) return { ok: 1 };
-    else return { ok: 0, err: result };
-  }  
+    if (result && util.isObject(result)) return { ok: 0, err: result };
+    return { ok: 1 };
+  }
 }
 
 module.exports = Jenkins;
