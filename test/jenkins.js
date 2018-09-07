@@ -5,7 +5,7 @@ const Jenkins = require('../src/jenkins');
 const jenkins = new Jenkins({
   username: 'admin',
   password: '123456',
-  url: 'http://localhost:3452',
+  url: 'http://localhost:8080',
   token: '5679eef1c0322ff982525d6d82ad10d3'
 });
 
@@ -20,6 +20,12 @@ describe('create a jenkins job', () => {
   it('it should build a job', async () => {
     const jobName = 'test';
     const result = await jenkins.build(jobName);
+    assert.equal(result.ok, 1);
+  });
+  
+  it('it should build a job with parameters', async () => {
+    const jobName = 'test';
+    const result = await jenkins.buildWithParams(jobName, { param1: 'value1', parameter2: 'value2'});
     assert.equal(result.ok, 1);
   });
 

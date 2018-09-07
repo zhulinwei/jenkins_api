@@ -1,4 +1,5 @@
 const util = require('util');
+const queryString = require('querystring');
 const request = require('request-promise-native');
 
 class Jenkins {
@@ -49,6 +50,22 @@ class Jenkins {
     if (result && util.isObject(result)) return { ok: 0, err: result };
     return { ok: 1 };
   }  
+
+  async buildWithParams(jobName, params) {
+    if (!jobName) throw new Error('请设置需要构建的项目以及版本号');
+    if (!util.isObject(params) || Object.keys(params).length < 1) throw new Error('请设置构建项目需要的参数'); 
+    const query = Object.assign({token: this.token}, params);
+    const options = {
+      method: "POST",
+      uri: `${this.baseUrl}/job/${jobName}/build/api/json?${queryString.stringify(query)}`,
+      auth: { user: this.username, pass: this.password }
+    };
+    console.log(options);
+    const result = await request(options).catch(err => err);
+    console.log('result: ', result);
+    if (result && util.isObject(result)) return { ok: 0, err: result };
+    return { ok: 1 };
+  }
 
   async getBuildInfo(jobName, jobNumber) {
     if (!jobName || !jobNumber) throw new Error('请设置需要项目名称以及版本号');
