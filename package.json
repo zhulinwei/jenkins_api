@@ -21,7 +21,8 @@
   "homepage": "https://github.com/zhulinwei/jenkins_api#readme",
   "dependencies": {
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.5"
+    "request-promise-native": "^1.0.5",
+    "sinon": "^6.3.4"
   },
   "devDependencies": {
     "mocha": "^5.2.0"
