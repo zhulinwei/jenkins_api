@@ -1,7 +1,7 @@
 const fs = require('fs');
 const sinon = require('sinon');
 const assert = require('assert');
-const Jenkins = require('../src/jenkins');
+const Jenkins = require('../lib/jenkins');
 const request = require('request-promise-native');
 
 const jenkins = new Jenkins({
@@ -14,7 +14,7 @@ const jenkins = new Jenkins({
 describe('create a jenkins job', () => {
   it('it should create a jenkins job', async () => {
     const jobName = 'test';
-    const jobConfig = fs.readFileSync('./src/config.xml', 'utf-8');
+    const jobConfig = fs.readFileSync('./lib/config.xml', 'utf-8');
 
     const post = sinon.stub(request, 'post').callsFake(function() {
       return Promise.resolve();
