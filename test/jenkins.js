@@ -16,86 +16,86 @@ describe('create a jenkins job', () => {
     const jobName = 'test';
     const jobConfig = fs.readFileSync('./lib/config.xml', 'utf-8');
 
-    const post = sinon.stub(request, 'post').callsFake(function() {
+    const stub = sinon.stub(request, 'post').callsFake(function() {
       return Promise.resolve();
     });
     const result = await jenkins.create(jobName, jobConfig);  
     assert.equal(result.ok, 1);
-    post.restore();
+    stub.restore();
   });
 
   it('it should build a job', async () => {
     const jobName = 'test';
-    const post = sinon.stub(request, 'post').callsFake(function() {
+    const stub = sinon.stub(request, 'post').callsFake(function() {
       return Promise.resolve();
     });
     const result = await jenkins.build(jobName);
     assert.equal(result.ok, 1);
-    post.restore();
+    stub.restore();
   });
    
   it('it should build a job with parameters', async () => {
     const jobName = 'test';
-    const post = sinon.stub(request, 'post').callsFake(function() {
+    const stub = sinon.stub(request, 'post').callsFake(function() {
       return Promise.resolve();
     });
     const result = await jenkins.buildWithParams(jobName, { param1: 'value1', parameter2: 'value2'});
     assert.equal(result.ok, 1);
-    post.restore();
+    stub.restore();
   });
 
   it('it should return the info of job', async () => {
     const jobName = 'test';
     const jobNumber = 1;
-    const get = sinon.stub(request, 'get').callsFake(function() {
+    const stub = sinon.stub(request, 'get').callsFake(function() {
       return Promise.resolve('');
     });
     const result = await jenkins.getBuildInfo(jobName, jobNumber);
     assert.equal(result.ok, 1);
-    get.restore();
+    stub.restore();
   });
 
   it('it should return the log of job', async () => {
     const jobName = 'test';
     const jobNumber = 1;
-    const get = sinon.stub(request, 'get').callsFake(function() {
+    const stub = sinon.stub(request, 'get').callsFake(function() {
       return Promise.resolve('');
     });
     const result = await jenkins.getBuildLog(jobName, jobNumber);
     assert.equal(result.ok, 1);
-    get.restore();
+    stub.restore();
   });
 
   it('it should the history of build', async () => {
     const jobName = 'test';
-    const get = sinon.stub(request, 'get').callsFake(function() {
+    const stub = sinon.stub(request, 'get').callsFake(function() {
       return Promise.resolve('');
     });
     const result = await jenkins.getBuildHistory(jobName);
     assert.equal(result.ok, 1);
-    get.restore();
+    stub.restore();
   });
 
 
   it('it should stop build the job', async () => {
     const jobName = 'test';
     const jobNumber = 1;
-    const post = sinon.stub(request, 'post').callsFake(function() {
+    const stub = sinon.stub(request, 'post').callsFake(function() {
       return Promise.resolve('');
     });
     const result = await jenkins.stopBuild(jobName, jobNumber);
     assert.equal(result.ok, 1);
-    post.restore();
+    stub.restore();
   });
 
   it('it should remove a jenkins job', async () => {
     const jobName = 'test';
-    const post = sinon.stub(request, 'post').callsFake(function() {
+    const stub = sinon.stub(request, 'post').callsFake(function() {
       return Promise.resolve('');
     });
     const result = await jenkins.remove(jobName);  
     assert.equal(result.ok, 1);
-    post.restore();
+    stub.restore();
   });
  
 });
