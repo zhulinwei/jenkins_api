@@ -1,24 +1,13 @@
 {
-  "name": "jenkins_api",
+  "name": "l-jenkins",
   "version": "1.0.0",
-  "description": "",
+  "description": "async jenkins api client",
   "main": "index.js",
-  "scripts": {
-    "test": "./node_modules/.bin/mocha"
+  "directories": {
+    "example": "example",
+    "lib": "lib",
+    "test": "test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zhulinwei/jenkins_api.git"
-  },
-  "keywords": [
-    "jenkins"
-  ],
-  "author": "Level.Z",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zhulinwei/jenkins_api/issues"
-  },
-  "homepage": "https://github.com/zhulinwei/jenkins_api#readme",
   "dependencies": {
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
@@ -26,5 +15,24 @@
   },
   "devDependencies": {
     "mocha": "^5.2.0"
-  }
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhulinwei/jenkins_api.git"
+  },
+  "keywords": [
+    "async",
+    "jenkins",
+    "node",
+    "javascript"
+  ],
+  "author": "Level.Z",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhulinwei/jenkins_api/issues"
+  },
+  "homepage": "https://github.com/zhulinwei/jenkins_api#readme"
 }
