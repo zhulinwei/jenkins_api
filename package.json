@@ -1,6 +1,6 @@
 {
   "name": "l-jenkins",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "async jenkins api client",
   "main": "index.js",
   "directories": {
